@@ -2310,6 +2310,7 @@ void AddSC_druid_spell_scripts()
     //7.3.5.25996
     RegisterSpellScript(spell_dru_blessing_of_the_ancients);
 
+    RegisterAuraScript(spell_dru_gore);
     RegisterAuraScript(aura_dru_solar_empowerment);
     RegisterAuraScript(aura_dru_lunar_empowerment);
     RegisterAuraScript(aura_dru_astral_form);
