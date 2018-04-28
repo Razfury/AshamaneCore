@@ -1949,8 +1949,6 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
         bool HasWorldQuestEnabled() const;
         void UpdateWorldQuestPosition(float x, float y);
 
-        void UpdateTravelForm();
-
         void SendMessageToSet(WorldPacket const* data, bool self) const override { SendMessageToSetInRange(data, GetVisibilityRange(), self); }
         void SendMessageToSetInRange(WorldPacket const* data, float dist, bool self) const override;
         void SendMessageToSetInRange(WorldPacket const* data, float dist, bool self, bool own_team_only) const;

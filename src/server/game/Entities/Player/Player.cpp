@@ -6057,58 +6057,6 @@ bool Player::UpdatePosition(float x, float y, float z, float orientation, bool t
     return true;
 }
 
-enum ShapeshiftFormSpellIds
-{
-    SPELL_DRUID_FLIGHT_FORM = 33943,
-    SPELL_DRUID_EPIC_FLIGHT_FORM = 40120,
-    SPELL_DRUID_AQUATIC_FORM = 1066,
-    SPELL_DRUID_STAG_FORM = 165961,
-    SPELL_DRUID_TRAVEL_FORM = 783,
-    SPELL_EXPERT_FLYING = 34090,
-    SPELL_ARTSIAN_FLYING = 34091,
-    SPELL_MASTER_FLYING = 90265,
-};
-
-void Player::UpdateTravelForm()
-{
-    if (GetShapeshiftForm() != FORM_AQUATIC_FORM || GetShapeshiftForm() != FORM_FLIGHT_FORM || GetShapeshiftForm() != FORM_FLIGHT_FORM_EPIC || GetShapeshiftForm() != FORM_TRAVEL_FORM)
-        return;
-
-    if (IsInWater() && !HasAura(SPELL_DRUID_AQUATIC_FORM)) //If the player is in water and does not have aquatic form remove all other forms and activate aquatic form
-    {
-        RemoveAura(SPELL_DRUID_STAG_FORM);
-        RemoveAura(SPELL_DRUID_TRAVEL_FORM);
-        RemoveAura(SPELL_DRUID_FLIGHT_FORM);
-        RemoveAura(SPELL_DRUID_EPIC_FLIGHT_FORM);
-        CastSpell(this, SPELL_DRUID_AQUATIC_FORM, false);
-    }
-
-    if (!IsInWater() && !IsFlying() && !HasAura(SPELL_DRUID_STAG_FORM)) //If the player is not in water and is not flying activate stag form
-    {
-        RemoveAura(SPELL_DRUID_AQUATIC_FORM);
-        RemoveAura(SPELL_DRUID_TRAVEL_FORM);
-        RemoveAura(SPELL_DRUID_FLIGHT_FORM);
-        RemoveAura(SPELL_DRUID_EPIC_FLIGHT_FORM);
-        CastSpell(this, SPELL_DRUID_STAG_FORM, false);
-    }
-
-    if (GetUnitMovementFlags() == MOVEMENTFLAG2_JUMP_SPLINE_IN_AIR && HasAura(SPELL_DRUID_STAG_FORM) || HasAura(SPELL_DRUID_AQUATIC_FORM) || HasAura(SPELL_DRUID_TRAVEL_FORM) && !IsFlying() && getLevel() >= 60) // If the player jumps while in travel form activate flight form and is higher than 60 (minimum level to fly)
-    {
-        RemoveAura(SPELL_DRUID_AQUATIC_FORM);
-        RemoveAura(SPELL_DRUID_TRAVEL_FORM);
-        RemoveAura(SPELL_DRUID_STAG_FORM);
-
-        if (HasAura(SPELL_EXPERT_FLYING)) // Player is able to fly according to http://www.wowhead.com/news=280492/flying-while-leveling-changes-in-patch-7-3-5-and-azeroth-transportation-guide-up you no longer need cold weather flying or any of the previous flying skills except Draenor & broken isles
-        {
-            CastSpell(this, SPELL_DRUID_FLIGHT_FORM);
-        }
-        if (HasAura(SPELL_ARTSIAN_FLYING) || HasAura(SPELL_MASTER_FLYING)) // Player is able to fly according to http://www.wowhead.com/news=280492/flying-while-leveling-changes-in-patch-7-3-5-and-azeroth-transportation-guide-up you no longer need cold weather flying or any of the previous flying skills except Draenor & broken isles
-        {
-            CastSpell(this, SPELL_DRUID_EPIC_FLIGHT_FORM);
-        }
-    }
-}
-
 bool Player::MeetPlayerCondition(uint32 conditionId) const
 {
     if (PlayerConditionEntry const* playerCondition = sPlayerConditionStore.LookupEntry(conditionId))
