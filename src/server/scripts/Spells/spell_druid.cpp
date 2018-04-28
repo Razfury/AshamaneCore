@@ -78,13 +78,8 @@ enum GoreSpells
 };
 
 // 210706 - Gore 7.3.5
-class spell_dru_gore : public SpellScriptLoader
-{
-public:
-    spell_dru_gore() : SpellScriptLoader("spell_dru_gore") { }
-
-    class spell_dru_gore_AuraScript : public AuraScript
-    {
+ class spell_dru_gore_AuraScript : public AuraScript
+ {
         PrepareAuraScript(spell_dru_gore_AuraScript);
 
         bool CheckProc(ProcEventInfo& eventInfo)
@@ -101,8 +96,7 @@ public:
         {
             DoCheckProc += AuraCheckProcFn(spell_dru_gore_AuraScript::CheckProc);
         }
-    };
-};
+ };
 
 //7.3.2.25549
 // 77758 - Thrash
