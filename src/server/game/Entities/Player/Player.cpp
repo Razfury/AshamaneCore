@@ -6092,7 +6092,7 @@ void Player::UpdateTravelForm()
         CastSpell(this, SPELL_DRUID_STAG_FORM, false);
     }
 
-    if (GetUnitMovementFlags() == MOVEMENTFLAG2_JUMP_SPLINE_IN_AIR && HasAura(SPELL_DRUID_AQUATIC_FORM) || HasAura(SPELL_DRUID_STAG_FORM) || HasAura(SPELL_DRUID_AQUATIC_FORM) || HasAura(SPELL_DRUID_TRAVEL_FORM) && !IsFlying() && getLevel() >= 60) // If the player jumps while in travel form activate flight form and is higher than 60 (minimum level to fly)
+    if (GetUnitMovementFlags() == MOVEMENTFLAG2_JUMP_SPLINE_IN_AIR && HasAura(SPELL_DRUID_STAG_FORM) || HasAura(SPELL_DRUID_AQUATIC_FORM) || HasAura(SPELL_DRUID_TRAVEL_FORM) && !IsFlying() && getLevel() >= 60) // If the player jumps while in travel form activate flight form and is higher than 60 (minimum level to fly)
     {
         RemoveAura(SPELL_DRUID_AQUATIC_FORM);
         RemoveAura(SPELL_DRUID_TRAVEL_FORM);
